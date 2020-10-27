@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rock Paper Scissors</title>
+  <meta charset="UTF-8"/>
+</head>
+<body>
+
+<script>
+function computerPlay() {
+    options = ['rock','paper','scissors']
+    selection = Math.floor(Math.random()*options.length);
+    output = options[selection];
+    
+    return output
+}
+
+function playRound(playerSelection, computerSelection) {
+    // turn both selections to lower case 
+    playerUpdated = playerSelection.toLowerCase();
+    computerUpdated = computerSelection.toLowerCase();
+    // do an if else comparison for tie first and then winning scenarios
+    if (playerUpdated === computerUpdated) {
+        return 'You Tied! Try again'
+    }
+    else if (playerUpdated === 'scissors' && computerUpdated === 'rock') {
+        return 'You Lose! Rock beats scissors'
+    }
+    else if (playerUpdated === 'rock' && computerUpdated === 'paper') {
+        return 'You Lose! Paper beats rock'
+        } 
+    else if (playerUpdated === 'paper' && computerUpdated === 'scissors') {
+        return 'You Lose! Scissors beats paper'
+        } 
+    else if (playerUpdated === 'scissors' && computerUpdated === 'paper') {
+        return 'You Win! Scissors beats paper'
+    }
+    else if (playerUpdated === 'rock' && computerUpdated === 'scissors') {
+        return 'You Win! Rock beats scissors'
+        } 
+    else if (playerUpdated === 'paper' && computerUpdated === 'rock') {
+        return 'You Win! Paper beats rock'
+    }
+}
+ 
+function game(numberOfRounds=1) {
+    let userScore = 0
+    let computerScore = 0
+    let playerSelection
+    // error handling
+    for (i=1; i<=numberOfRounds; i++) {
+
+        loop: 
+        while(true){
+            playerSelection = prompt('Choose rock, paper or scissors'); 
+            switch (playerSelection.toLowerCase()) {
+                case 'rock':
+                    playerSelection = 'rock';
+                    break loop;
+                case 'scissors':
+                    playerSelection = 'scissors';
+                    break loop;
+                case 'paper':
+                    playerSelection = 'paper';
+                    break loop;
+                default: alert('Please enter rock, paper or scissors only!')
+            }
+        }
+        result = playRound(playerSelection, computerPlay())
+        //score keeping based on first 7 letters or search for !
+        switch (result.slice(0,result.search('!'))) {
+            case 'You Win': 
+                alert(result);
+                userScore++;
+                break;
+            case 'You Lose':
+                alert(result);
+                computerScore++;
+                break;
+            //all other is no score increase
+            default:
+                alert(result);
+                break;
+        }
+    }
+    if (userScore === computerScore) {
+        return console.log('You tied!');
+    }
+    else if (userScore > computerScore) {
+        return console.log('You win!');
+    }
+    else {
+        return console.log('You lose. Try again')
+    }
+}
+
+</script>
+</body>
+</html>
